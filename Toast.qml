@@ -3,7 +3,7 @@ import QtQuick.Controls.Material
 
 Rectangle {
     id: root
-    width: 240; height: 60
+    width: 300; height: 60
     anchors.centerIn: parent
     color: "black"
     border.color: Material.accentColor

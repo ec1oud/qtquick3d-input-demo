@@ -8,6 +8,8 @@ Rectangle {
 
     color: "#444"
 
+    property var toastComponent: Qt.createComponent("Toast.qml")
+
     component HoverTapButton: Rectangle {
         id: htbutton
         property string name: ""
@@ -16,6 +18,7 @@ Rectangle {
         property point lastPressPos: Qt.point(-1, -1)
         property point lastReleasePos: Qt.point(-1, -1)
         property int clickedCount: 0
+        signal tapped
         onPressedChanged: {
             if (pressed)
                 lastPressPos = utap.point.position;
@@ -36,7 +39,12 @@ Rectangle {
         TapHandler {
             id: utap
             objectName: htbutton.name + " TapHandler"
-            onTapped: ++clickedCount
+            onTapped: {
+                ++clickedCount
+                console.log("----------------- tap ", utap.point.position.toString())
+                toastComponent.createObject(root, {text: "Tap @ " + utap.point.position.x.toFixed(2) + ", " + utap.point.position.y.toFixed(2)});
+                htbutton.tapped()
+            }
         }
         Text {
             anchors.centerIn: parent

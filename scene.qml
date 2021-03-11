@@ -74,6 +74,10 @@ View3D {
             pickable: true
             TapHandler {
                 id: th1
+                onTapped: {
+                    console.log("----------------- tap 'snooze' ", th1.point.position.toString())
+                    mainScreen.toastComponent.createObject(mainScreen, {text: "Snooze @ " + th1.point.position.x.toFixed(2) + ", " + th1.point.position.y.toFixed(2)});
+                }
             }
         }
         Model {
@@ -127,6 +131,7 @@ View3D {
                 diffuseMap: Texture {
                     sourceItem: MainScreen {
                         id: mainScreen
+                        property var toastComponent: Qt.createComponent("Toast.qml")
                     }
                 }
                 emissiveColor: "white"
