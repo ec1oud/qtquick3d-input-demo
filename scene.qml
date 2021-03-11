@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick3D
+import QtQuick3D.Particles3D
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
@@ -130,6 +131,63 @@ View3D {
                 }
                 emissiveColor: "white"
                 emissiveFactor: mainScreen.backlightBrightness
+            }
+        }
+    }
+
+    Component {
+        id: particleComponent
+        Model {
+            source: "#Cube"
+            scale: Qt.vector3d(0.05, 0.05, 0.05)
+            materials: DefaultMaterial {
+            }
+        }
+    }
+
+    ParticleSystem3D {
+        id: psystem
+        SpriteParticle3D {
+            id: spriteParticle
+            sprite: Texture {
+                source: "confetti.png"
+            }
+            maxAmount: 2000
+            color: "#ff00ffd0"
+            colorVariation: Qt.vector4d(0.6, 0.6, 0.3, 0)
+            fadeOutDuration: 200
+            fadeOutEffect: Particle3D.FadeScale
+        }
+        ParticleEmitter3D {
+            particle: spriteParticle
+            emitRate: th0.pressed ? 200 : 0
+            lifeSpan: 10000
+            scale: Qt.vector3d(8, 8, 0)
+            position: Qt.vector3d(0, 400, 0)
+            shape: ParticleShape3D {
+                type: ParticleShape3D.Cube
+            }
+            particleScale: 2.4
+            particleEndScale: 0.2
+            particleScaleVariation: 1.8
+            particleRotationVariation: Qt.vector3d(0, 0, 180)
+            velocity: TargetDirection3D {
+                magnitudeVariation: magnitude
+                position: Qt.vector3d(100, -300, 0)
+                positionVariation: Qt.vector3d(100, 18, 18)
+                SequentialAnimation on magnitude {
+                    loops: Animation.Infinite
+                    NumberAnimation {
+                        to: 1.0
+                        duration: 3000
+                        easing.type: Easing.InOutQuad
+                    }
+                    NumberAnimation {
+                        to: 0.1
+                        duration: 5000
+                        easing.type: Easing.InOutQuad
+                    }
+                }
             }
         }
     }
