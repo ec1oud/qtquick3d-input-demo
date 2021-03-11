@@ -168,9 +168,13 @@ Window {
             id: case_
             source: "meshes/case.mesh"
             eulerRotation: Qt.vector3d(eulerX.value, eulerY.value, eulerZ.value)
-//            eulerRotation: Qt.vector3d(-64, 0, 248)
-
-//            materials: DefaultMaterial { }
+            scale: Qt.vector3d(ph.scale, ph.scale, ph.scale)
+            pickable: true
+            PinchHandler {
+                id: ph
+                minimumScale: 0.5
+                maximumScale: 2.5
+            }
             materials: PrincipledMaterial {
                 baseColor: "navajowhite"
                 roughness: 10
