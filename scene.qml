@@ -10,7 +10,7 @@ View3D {
     hoverEnabled: hoverEnabledSw.checked
 
     environment: SceneEnvironment {
-        clearColor: window.color
+        clearColor: "black"
         backgroundMode: SceneEnvironment.SkyBox
         antialiasingMode: SceneEnvironment.MSAA
         lightProbe: Texture {
@@ -82,10 +82,10 @@ View3D {
                 id: butmat2
                 emissiveColor: "cyan"
                 SequentialAnimation {
-                    id: rightAlarmAnimation
+                    id: mailAnimation
                     loops: Animation.Infinite
+                    alwaysRunToEnd: true
                     running: mainScreen.youHaveMail
-                    onRunningChanged: if (!running) complete()
                     NumberAnimation {
                         target: butmat2; property: "emissiveFactor"
                         to: 0.8
@@ -135,10 +135,11 @@ View3D {
     }
 
     Item {
-        id: materialCtrl
+        id: sceneControls
         anchors.top: parent.top
         width: 400; height: 100
         z: 10
+        Material.accent: "green"
         Row {
             y: 100
             Column {
@@ -216,7 +217,6 @@ View3D {
                     id: objEulerX
                     from: -360
                     to: 360
-//                    value: -64
                 }
                 Slider {
                     id: objEulerY

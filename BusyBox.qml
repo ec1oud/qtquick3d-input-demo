@@ -60,8 +60,8 @@ Rectangle {
         color: "orange"
         text: "hover " + feedback.point.position.x.toFixed(1) + ", " + feedback.point.position.y.toFixed(1)
         anchors.bottom: parent.bottom
-        anchors.margins: 3
-        x: 3
+        anchors.margins: 12
+        x: 12
     }
 
     Row {

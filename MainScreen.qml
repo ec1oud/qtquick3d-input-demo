@@ -21,7 +21,7 @@ Item {
             text: "Lighting"
         }
         TabButton {
-            text: "Plain Qt Quick Test"
+            text: "Plain Qt Quick"
         }
         TabButton {
             text: "🪟"
