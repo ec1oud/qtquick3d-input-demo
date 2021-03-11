@@ -12,6 +12,7 @@ Item {
     function goToMail() {
         tabs.currentIndex = 4
     }
+    property var toastComponent: Qt.createComponent("Toast.qml")
     width: 640; height: 640
     TabBar {
         id: tabs
@@ -109,6 +110,7 @@ Item {
             }
         }
         Rectangle {
+            id: mailPane
             color: "#444"
             RowLayout {
                 spacing: 12
@@ -123,7 +125,10 @@ Item {
                 Button {
                     visible: composePopup.visible
                     text: "Send"
-                    onClicked: composePopup.visible = false
+                    onClicked: {
+                        toastComponent.createObject(mailPane, {text: "Sent!"});
+                        composePopup.visible = false
+                    }
                 }
             }
             Rectangle {
