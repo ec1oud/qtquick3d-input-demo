@@ -5,16 +5,19 @@
 
 width = 180;
 bottomDepth = 80;
-topDepth = 20;
+topDepth = 12;
 height = 150;
 backTilt = 12;
-outerRadius = 5;
+outerRadius = 4;
 cutoutRadius = width / 2 - 1;
 thickness = 2;
 buttonProportions=[0.2, 0.6, 0.2];
 buttonSpacing = 6;
 buttonDepth = 12;
 buttonGap = 0.5;
+screenMargins = 10;
+screenBottomMargin = 30;
+screenCornerRadius = 5;
 
 $fn=48;
 
@@ -53,8 +56,8 @@ module envelope(shrink=0) {
 		hull() {
 			translate([0, r, -r]) sphere(r);
 			translate([0, y-r, -r]) sphere(r);
-			translate([xft-r, r, z-r]) sphere(r);
-			translate([xft-r, y-r, z-r]) sphere(r);
+			translate([xft, r, z-r]) sphere(r);
+			translate([xft, y-r, z-r]) sphere(r);
 			translate([r-x, r, -r]) sphere(r);
 			translate([r-x, y-r, -r]) sphere(r);
 			translate([xbt+r, r, z-r]) sphere(r);
@@ -71,13 +74,18 @@ function buttonSumTo(endI, i=0) =
 module button(i) {
 	totalButtonWidth = buttonSumTo(len(buttonProportions)) * width - buttonSpacing * (len(buttonProportions) + 1);
 	xn = buttonSumTo(i);
-	translate([buttonGap - bottomDepth - (topDepth - buttonDepth) / 2 - backTilt,
+	translate([-bottomDepth - backTilt + (topDepth - buttonDepth) / 2 - outerRadius,
 				buttonGap + (buttonSpacing * (i + 1) + (xn * totalButtonWidth)),
 				height - thickness * 2])
 		round4CornersCube(buttonDepth - buttonGap * 2,  buttonProportions[i] * totalButtonWidth - buttonGap * 2, thickness * 3, 2);
 }
 
 module case() {
+	frontTilt = topDepth - bottomDepth - backTilt;
+	frontHeight = sqrt(height * height + frontTilt * frontTilt); // pythag
+	frontAngle = atan(frontTilt / height);
+	screenWidth = width - screenMargins * 2;
+	screenHeight = frontHeight - screenMargins - screenBottomMargin;
 	difference() {
 		envelope();
 		translate([-thickness, thickness, thickness])
@@ -87,14 +95,17 @@ module case() {
 		for ( i = [0:1:len(buttonProportions)-1]) {
 			xn = buttonSumTo(i);
 			echo (i, xn, buttonProportions[i]);
-			translate([-bottomDepth - (topDepth - buttonDepth) / 2 - backTilt,
+			translate([- bottomDepth - backTilt + (topDepth - buttonDepth) / 2 - outerRadius,
 						(buttonSpacing * (i + 1) + (xn * totalButtonWidth)),
 						height - thickness * 2])
 				round4CornersCube(buttonDepth,  buttonProportions[i] * totalButtonWidth, thickness * 3, 2);
 		}
+		translate([-13, screenMargins, screenBottomMargin])
+			rotate([0, frontAngle - 90, 0])
+				round4CornersCube(screenHeight, screenWidth, thickness * 2, screenCornerRadius);
 	}
 }
 
 case();
 
-button(2);
+button(0);
