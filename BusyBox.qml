@@ -103,7 +103,10 @@ Rectangle {
             TextInput {
                 text: "Editable Text"
                 color: "cyan"
-                focus: true
+            }
+            TextInput {
+                text: "More Editable Text"
+                color: "cyan"
             }
         }
         DragAnywhereSlider { }

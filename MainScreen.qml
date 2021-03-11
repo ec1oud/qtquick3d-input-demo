@@ -49,7 +49,7 @@ Item {
         }
     }
 
-    SwipeView {
+    StackLayout {
         id: swipeview
 
         currentIndex: tabs.currentIndex
@@ -108,7 +108,8 @@ Item {
                 }
             }
         }
-        Pane {
+        Rectangle {
+            color: "#444"
             RowLayout {
                 spacing: 12
                 Button {
@@ -125,16 +126,19 @@ Item {
                     onClicked: composePopup.visible = false
                 }
             }
-            Frame {
+            Rectangle {
                 id: composePopup
+                color: "#333"
+                border.color: Material.foreground
                 visible: false
                 width: 500; height: 400; anchors.centerIn: parent
                 GridLayout {
                     anchors.fill: parent
+                    anchors.margins: 6
                     columns: 2
                     Label { text: "To:" }
                     TextField { Layout.fillWidth: true }
-                    TextEdit {
+                    TextArea {
                         Layout.columnSpan: 2
                         Layout.fillWidth: true
                         Layout.fillHeight: true
