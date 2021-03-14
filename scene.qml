@@ -8,7 +8,6 @@ View3D {
     id: view
     width: 1600
     height: 1600
-    hoverEnabled: hoverEnabledSw.checked
 
     environment: SceneEnvironment {
         clearColor: "black"
@@ -206,14 +205,6 @@ View3D {
         Row {
             y: 100
             Column {
-                Row {
-                    Text { color: "white"; style: Text.Outline; styleColor: "black"; anchors.verticalCenter: parent.verticalCenter;
-                        text: "hover enabled" }
-                    Switch {
-                        id: hoverEnabledSw
-                        checked: true
-                    }
-                }
                 Text { color: "white"; style: Text.Outline; styleColor: "black";
                     text: "room spin " + probeOrientX.value.toFixed(2) + " " + probeOrientY.value.toFixed(2) }
                 Slider {
