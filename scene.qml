@@ -16,7 +16,7 @@ View3D {
         lightProbe: Texture {
             source: "blinds_2k.hdr"
         }
-        probeOrientation: Qt.vector3d(probeOrientX.value, probeOrientY.value, 0)
+        probeOrientation: Qt.vector3d(-35, -22, 0)
         probeExposure: mainScreen.ambientBrightness
     }
 
@@ -37,7 +37,7 @@ View3D {
     Model {
         id: case_
         source: "meshes/case.mesh"
-        eulerRotation: Qt.vector3d(eulerX.value, eulerY.value, eulerZ.value)
+        eulerRotation: Qt.vector3d(-64, 0, eulerZ.value)
         scale: Qt.vector3d(ph.scale, ph.scale, ph.scale)
         pickable: true
         PinchHandler {
@@ -53,8 +53,7 @@ View3D {
             id: button0
             source: "meshes/button0.mesh"
             materials: DefaultMaterial {
-                emissiveColor: "cyan"
-                emissiveFactor: th0.pressed ? 1 : 0
+                emissiveFactor: th0.pressed ? "0,0.5,0.5" : "0,0,0"
             }
             z: th0.pressed ? -1 : 0
             pickable: true
@@ -66,16 +65,17 @@ View3D {
             id: button1
             source: "meshes/button1.mesh"
             materials: DefaultMaterial {
-                emissiveColor: "cyan"
-                emissiveFactor: th1.pressed ? 0.5 : 0
+                emissiveFactor: th1.pressed ? "0,0.5,0.5" : "0,0,0"
             }
             z: th1.pressed ? -1 : 0
             pickable: true
             TapHandler {
                 id: th1
                 onTapped: {
-                    console.log("----------------- tap 'snooze' ", th1.point.position.toString())
-                    mainScreen.toastComponent.createObject(mainScreen, {text: "Snooze @ " + th1.point.position.x.toFixed(2) + ", " + th1.point.position.y.toFixed(2)});
+                    console.log("----------------- tap 'snooze' ", th1.point.modelPosition.toString())
+                    mainScreen.toastComponent.createObject(mainScreen, {text: "Snooze @ " + th1.point.modelPosition.x.toFixed(2) +
+                                                                              ", " + th1.point.modelPosition.y.toFixed(2) +
+                                                                              ", " + th1.point.modelPosition.z.toFixed(2)});
                 }
             }
         }
@@ -84,21 +84,22 @@ View3D {
             source: "meshes/button2.mesh"
             materials: DefaultMaterial {
                 id: butmat2
-                emissiveColor: "cyan"
+                property real ef: 0
+                emissiveFactor: Qt.vector3d(0,ef,ef)
                 SequentialAnimation {
                     id: mailAnimation
                     loops: Animation.Infinite
                     alwaysRunToEnd: true
-                    running: mainScreen.youHaveMail
+                    running: true // mainScreen.youHaveMail
                     NumberAnimation {
-                        target: butmat2; property: "emissiveFactor"
-                        to: 0.8
+                        target: butmat2; property: "ef"
+                        to:  0.7
                         duration: 1000
                         easing.type: Easing.OutBounce
                         easing.overshoot: 2
                     }
                     NumberAnimation {
-                        target: butmat2; property: "emissiveFactor"
+                        target: butmat2; property: "ef"
                         to: 0
                         duration: 100
                     }
@@ -110,21 +111,12 @@ View3D {
                 id: th2
                 onTapped: mainScreen.goToMail()
             }
-            states: [
-                State {
-                    name: "blinking"
-                    PropertyChanges {
-                        target: butmat2
-                        emissiveFactor: 1
-                    }
-                }
-            ]
         }
         Model {
             source: "#Rectangle"
             pickable: true
-            eulerRotation: Qt.vector3d(objEulerX.value, objEulerY.value, objEulerZ.value)
-            position: Qt.vector3d(posX.value, posY.value, posZ.value)
+            eulerRotation: Qt.vector3d(0, 62, 90)
+            position: Qt.vector3d(-45, 90, 85.8)
             scale: Qt.vector3d(1.6, 1.3, 1)
             materials: DefaultMaterial {
                 diffuseMap: Texture {
@@ -133,8 +125,8 @@ View3D {
                         property var toastComponent: Qt.createComponent("Toast.qml")
                     }
                 }
-                emissiveColor: "white"
-                emissiveFactor: mainScreen.backlightBrightness
+                emissiveMap: diffuseMap
+                emissiveFactor: Qt.vector3d(mainScreen.backlightBrightness, mainScreen.backlightBrightness, mainScreen.backlightBrightness)
             }
         }
     }
@@ -205,84 +197,11 @@ View3D {
         Row {
             y: 100
             Column {
-                Text { color: "white"; style: Text.Outline; styleColor: "black";
-                    text: "room spin " + probeOrientX.value.toFixed(2) + " " + probeOrientY.value.toFixed(2) }
-                Slider {
-                    id: probeOrientX
-                    from: -360
-                    to: 360
-                    value: -35
-                }
-                Slider {
-                    id: probeOrientY
-                    from: -360
-                    to: 360
-                    value: -22
-                }
-                Text { color: "white"; style: Text.Outline; styleColor: "black";
-                    text: "active focus " + Window.activeFocusItem.toString() }
-            }
-            Column {
-                Text { color: "white"; style: Text.Outline; styleColor: "black";
-                    text: "model rotation " + eulerX.value.toFixed(2) + " " + eulerY.value.toFixed(2) + " " + eulerZ.value.toFixed(2) }
-                Slider {
-                    id: eulerX
-                    from: -360
-                    to: 360
-                    value: -64
-                }
-                Slider {
-                    id: eulerY
-                    from: -360
-                    to: 360
-                }
                 Slider {
                     id: eulerZ
                     from: -360
                     to: 360
                     value: 248
-                }
-            }
-            Column {
-                visible: false
-                Text { color: "white"; style: Text.Outline; styleColor: "black";
-                    text: "screen pos " + posX.value.toFixed(2) + " " + posY.value.toFixed(2) + " " + posZ.value.toFixed(2) }
-                Slider {
-                    id: posX
-                    from: -360
-                    to: 360
-                    value: -45
-                }
-                Slider {
-                    id: posY
-                    from: -360
-                    to: 360
-                    value: 90
-                }
-                Slider {
-                    id: posZ
-                    from: -360
-                    to: 600
-                    value: 85.8
-                }
-                Text { color: "white"; style: Text.Outline; styleColor: "black";
-                    text: "screen angle " + objEulerX.value.toFixed(2) + " " + objEulerY.value.toFixed(2) + " " + objEulerZ.value.toFixed(2) }
-                Slider {
-                    id: objEulerX
-                    from: -360
-                    to: 360
-                }
-                Slider {
-                    id: objEulerY
-                    from: 50
-                    to: 70
-                    value: 62
-                }
-                Slider {
-                    id: objEulerZ
-                    from: -360
-                    to: 360
-                    value: 90
                 }
             }
         }
