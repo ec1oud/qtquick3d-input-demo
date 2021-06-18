@@ -118,15 +118,23 @@ View3D {
             eulerRotation: Qt.vector3d(0, 62, 90)
             position: Qt.vector3d(-45, 90, 85.8)
             scale: Qt.vector3d(1.6, 1.3, 1)
-            materials: DefaultMaterial {
-                diffuseMap: Texture {
+            materials: PrincipledMaterial {
+                id: pm
+                baseColorMap: Texture {
                     sourceItem: MainScreen {
                         id: mainScreen
                         property var toastComponent: Qt.createComponent("Toast.qml")
                     }
                 }
-                emissiveMap: diffuseMap
-                emissiveFactor: Qt.vector3d(mainScreen.backlightBrightness, mainScreen.backlightBrightness, mainScreen.backlightBrightness)
+                emissiveMap: Texture {
+                    sourceItem: Rectangle {
+                        width: 32
+                        height: 32
+                        color: "white"
+                    }
+                }
+                property real nef: (mainScreen.backlightBrightness - 1) * 0.2 // goes from -0.2 to 0 now
+                emissiveFactor: Qt.vector3d(nef, nef, nef)
             }
         }
     }
