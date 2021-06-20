@@ -37,9 +37,11 @@ View3D {
                 obj.leftMeterRot = 20 + Math.random() * 30
                 obj.rightMeterRot = obj.leftMeterRot + (Math.random() - 0.5) * 5
             }
-            onRunningChanged: if (!running) {
-
-                              }
+            onRunningChanged:
+                if (!running) {
+                    obj.leftMeterRot = 0
+                    obj.rightMeterRot = 0
+                }
         }
         Behavior on leftMeterRot {
             NumberAnimation { duration: 100 }
