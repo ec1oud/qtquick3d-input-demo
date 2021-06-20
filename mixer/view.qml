@@ -32,22 +32,27 @@ View3D {
 
         Timer {
             id: vuTimer
-            interval: 50; repeat: true; running: obj.powerOn
+            interval: 100; repeat: true; running: obj.powerOn
             onTriggered: {
-                obj.leftMeterRot = 20 + Math.random() * 30
+                obj.leftMeterRot = 20 + Math.random() * 40
                 obj.rightMeterRot = obj.leftMeterRot + (Math.random() - 0.5) * 5
             }
-            onRunningChanged:
-                if (!running) {
-                    obj.leftMeterRot = 0
-                    obj.rightMeterRot = 0
-                }
+            onRunningChanged: if (!running) powerOffNeedleAnim.start()
         }
         Behavior on leftMeterRot {
             NumberAnimation { duration: 100 }
         }
         Behavior on rightMeterRot {
             NumberAnimation { duration: 100 }
+        }
+        NumberAnimation {
+            id: powerOffNeedleAnim
+            target: obj
+            properties: "leftMeterRot,rightMeterRot"
+            to: 0
+            duration: 700
+            easing.type: Easing.OutBounce
+            easing.amplitude: 0.7
         }
 
         // workaround because making rodec_Mixetta_Rodec_Knobs_Power pickable doesn't sem to work
