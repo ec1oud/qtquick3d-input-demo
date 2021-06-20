@@ -17,6 +17,8 @@ Node {
     property real leftMeterRot: 0
     property real rightMeterRot: 0
 
+    property alias phono1sliderValue: rodec_Mixetta_Rodec_Slider_Phono1.value
+
     property real tweak1
     property real tweak2
 
@@ -519,9 +521,11 @@ Node {
                                 id: rodec_Mixetta_Rodec_Slider_Phono1_dh
                             }
                             BoundaryRule on y {
+                                id: slph1br
                                 minimum: -0.055
                                 maximum: 0.01
                             }
+                            property real value: (y - slph1br.minimum) / (slph1br.maximum - slph1br.minimum)
                         }
                         Model {
                             id: rodec_Mixetta_Rodec_Slider_Phono2

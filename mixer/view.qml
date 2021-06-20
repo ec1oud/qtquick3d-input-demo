@@ -12,7 +12,7 @@ View3D {
     id: view3D; width: 2000; height: 1000
 
     environment: SceneEnvironment { backgroundMode: SceneEnvironment.Color; clearColor: "#333" }
-    DirectionalLight { brightness: slider2.value }
+    DirectionalLight { id: dirl; brightness: obj.phono1sliderValue }
     PerspectiveCamera { id: camera }
 
     Mixetta {
@@ -29,7 +29,7 @@ View3D {
         microbassRot: slider1.value
         levelRot: slider1.value
 
-        tweak1: slider2.value
+//        tweak1: slider2.value
 
 //        pos: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
 
@@ -75,13 +75,13 @@ View3D {
                 to: 270
             }
             Text { color: "white"; text: slider1.value.toFixed(3) }
-            Slider {
-                id: slider2
-                from: 0
-                to: 10
-                value: 0.05
-            }
-            Text { color: "white"; text: "Dir Light " + slider2.value.toFixed(3) }
+//            Slider {
+//                id: slider2
+//                from: 0
+//                to: 10
+//                value: 0.05
+//            }
+            Text { color: "white"; text: "Dir Light " + dirl.brightness.toFixed(3) }
         }
         Column {
             Slider {
