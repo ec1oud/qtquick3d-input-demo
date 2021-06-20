@@ -13,7 +13,6 @@ Node {
     property real selectorRot: 0
     property real microbassRot: 0
     property real levelRot: 0
-    property real powerRot: 0
 
     property real leftMeterRot: 0
     property real rightMeterRot: 0
@@ -235,7 +234,7 @@ Node {
                             x: 0.160396
                             y: -0.0763736
                             z: 0.019
-                            eulerRotation: Qt.vector3d(0, 0, -rOOT.powerRot)
+                            eulerRotation: rodec_Mixetta_Rodec_Knobs_Power.eulerRotation
                             source: "meshes/rodec_Mixetta_Rodec_Knobs_Aniso_Power.mesh"
                             materials: [
                                 rodec_Knobs_Aniso_material
@@ -383,11 +382,16 @@ Node {
                             x: 0.160562
                             y: -0.075973
                             z: 0.0110243
-                            eulerRotation: Qt.vector3d(0, 0, -rOOT.powerRot)
+                            eulerRotation: Qt.vector3d(0, 0, powerOn ? 15 : 0)
                             source: "meshes/rodec_Mixetta_Rodec_Knobs_Power.mesh"
                             materials: [
                                 rodec_Knobs_material
                             ]
+                            pickable: true
+                            property bool powerOn: false
+                            TapHandler {
+                                onTapped: powerOn = !powerOn
+                            }
                         }
                         Model {
                             id: rodec_Mixetta_Rodec_Knobs_Selector
