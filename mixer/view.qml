@@ -12,8 +12,7 @@ View3D {
     id: view3D; width: 2000; height: 1000
 
     environment: SceneEnvironment { backgroundMode: SceneEnvironment.Color; clearColor: "#333" }
-    DirectionalLight { }
-    DirectionalLight { eulerRotation.x: 180 }
+    DirectionalLight { brightness: slider2.value }
     PerspectiveCamera { id: camera }
 
     Mixetta {
@@ -29,6 +28,10 @@ View3D {
 
         microbassRot: slider1.value
         levelRot: slider1.value
+
+        tweak1: slider2.value
+
+//        pos: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
 
         Timer {
             id: vuTimer
@@ -65,10 +68,44 @@ View3D {
 //            source: "resources/noun_3D_2353959.svg"
 //            TapHandler { onTapped: axes.visible = !axes.visible }
 //        }
-        Slider {
-            id: slider1
-            from: 0
-            to: 270
+        Column {
+            Slider {
+                id: slider1
+                from: 0
+                to: 270
+            }
+            Text { color: "white"; text: slider1.value.toFixed(3) }
+            Slider {
+                id: slider2
+                from: 0
+                to: 10
+                value: 0.05
+            }
+            Text { color: "white"; text: "Dir Light " + slider2.value.toFixed(3) }
+        }
+        Column {
+            Slider {
+                id: sliderx
+                from: 0
+                to: 0.2
+                value: 0.068
+            }
+            Slider {
+                id: slidery
+                from: 0
+                to: 0.1
+                value: 0.035
+            }
+            Slider {
+                id: sliderz
+                from: 0
+                to: 0.05
+                value: 0.01
+            }
+            Text {
+                color: "white"
+                text: sliderx.value.toFixed(3) + ", " + slidery.value.toFixed(3) + ", " + sliderz.value.toFixed(3)
+            }
         }
         Text {
             color: "white"

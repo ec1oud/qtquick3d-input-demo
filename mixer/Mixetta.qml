@@ -17,8 +17,8 @@ Node {
     property real leftMeterRot: 0
     property real rightMeterRot: 0
 
-    property real display1: rodec_Mixetta_Rodec_Slider_Phono2.y
-    property real display2
+    property real tweak1
+    property real tweak2
 
 //    property alias rot1: rodec_Mixetta_Rodec_Knobs_Aniso_Phono1_wh.rotation
 //    property alias rot2: rodec_Mixetta_Rodec_Knobs_Phono1_wh.rotation
@@ -621,6 +621,11 @@ Node {
                             materials: [
                                 rodec_Trans_material
                             ]
+
+                            PointLight { position: "0.068,0.035,0.010"; brightness: 3; castsShadow: true; color: "lemonchiffon" }
+                            PointLight { position: "0.092,0.035,0.010"; brightness: 3; castsShadow: true; color: "lemonchiffon" }
+                            PointLight { position: "0.145,0.035,0.010"; brightness: 3; castsShadow: true; color: "lemonchiffon" }
+                            PointLight { position: "0.173,0.035,0.010"; brightness: 3; castsShadow: true; color: "lemonchiffon" }
                         }
                     }
                 }
