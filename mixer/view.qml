@@ -17,6 +17,7 @@ View3D {
 
     Mixetta {
         id: obj
+//        visible: false
         position: "0.954, 2.25, 370"
         eulerRotation: "90,0,0"
 
@@ -29,17 +30,16 @@ View3D {
         microbassRot: slider1.value
         levelRot: slider1.value
 
-//        tweak1: slider2.value
-
-        tweak1: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
-
         Timer {
             id: vuTimer
-            interval: 50; repeat: true; running: true
+            interval: 50; repeat: true; running: obj.powerOn
             onTriggered: {
                 obj.leftMeterRot = 20 + Math.random() * 30
                 obj.rightMeterRot = obj.leftMeterRot + (Math.random() - 0.5) * 5
             }
+            onRunningChanged: if (!running) {
+
+                              }
         }
         Behavior on leftMeterRot {
             NumberAnimation { duration: 100 }
@@ -47,8 +47,23 @@ View3D {
         Behavior on rightMeterRot {
             NumberAnimation { duration: 100 }
         }
+
+        // workaround because making rodec_Mixetta_Rodec_Knobs_Power pickable doesn't sem to work
+        Model {
+            id: powerKnobEnvelope
+            source: "#Cylinder"
+            pickable: true
+            scale: "0.03,0.02,0.03"
+            position: "16,1,7"
+            materials: DefaultMaterial { diffuseColor: pcth.pressed ? "tomato" : "beige"; opacity: 0.1 }
+            property bool powerOn: false
+            TapHandler {
+                id: pcth
+                onPressedChanged: if (!pressed) obj.powerOn = !obj.powerOn
+            }
+        }
     }
-//    WasdController { controlledObject: obj }
+//    WasdController { controlledObject: camera }
 
     function resetView() {
         camera.position = "0, 0, 400"
@@ -86,21 +101,21 @@ View3D {
         Column {
             Slider {
                 id: sliderx
-                from: 0.1
-                to: 0.2
-                value: 0.161
+                from: 0
+                to: 100
+                value: 16
             }
             Slider {
                 id: slidery
-                from: -0.1
-                to: 0.1
-                value: -0.076
+                from: 0
+                to: 20
+                value: 1
             }
             Slider {
                 id: sliderz
-                from: 0
-                to: 0.1
-                value: 0.011
+                from: 4
+                to: 8
+                value: 7
             }
             Text {
                 color: "white"
