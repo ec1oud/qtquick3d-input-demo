@@ -31,7 +31,7 @@ View3D {
 
 //        tweak1: slider2.value
 
-//        pos: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
+        tweak1: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
 
         Timer {
             id: vuTimer
@@ -86,21 +86,21 @@ View3D {
         Column {
             Slider {
                 id: sliderx
-                from: 0
+                from: 0.1
                 to: 0.2
-                value: 0.068
+                value: 0.161
             }
             Slider {
                 id: slidery
-                from: 0
+                from: -0.1
                 to: 0.1
-                value: 0.035
+                value: -0.076
             }
             Slider {
                 id: sliderz
                 from: 0
-                to: 0.05
-                value: 0.01
+                to: 0.1
+                value: 0.011
             }
             Text {
                 color: "white"
@@ -111,10 +111,10 @@ View3D {
             color: "white"
             text: obj.position.toString() + " rot " + obj.eulerRotation.toString()
         }
-        Text {
-            color: "white"
-            text: obj.display1.toFixed(3) + "\n" + obj.display2.toFixed(3)
-        }
+//        Text {
+//            color: "white"
+//            text: obj.display1.toFixed(3) + "\n" + obj.display2.toFixed(3)
+//        }
 //        Text {
 //            color: "white"
 //            text: obj.vis ? "☒ vis" : "☐ invis"

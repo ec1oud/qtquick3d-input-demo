@@ -19,7 +19,7 @@ Node {
 
     property alias phono1sliderValue: rodec_Mixetta_Rodec_Slider_Phono1.value
 
-    property real tweak1
+    property alias tweak1: powerCube.position
     property real tweak2
 
 //    property alias rot1: rodec_Mixetta_Rodec_Knobs_Aniso_Phono1_wh.rotation
@@ -384,15 +384,28 @@ Node {
                             x: 0.160562
                             y: -0.075973
                             z: 0.0110243
-                            eulerRotation: Qt.vector3d(0, 0, powerOn ? 15 : 0)
+                            eulerRotation: Qt.vector3d(0, 0, powerCube.powerOn ? 15 : 0)
                             source: "meshes/rodec_Mixetta_Rodec_Knobs_Power.mesh"
                             materials: [
                                 rodec_Knobs_material
                             ]
+                        }
+                        // workaround because making rodec_Mixetta_Rodec_Knobs_Power pickable doesn't sem to work
+                        Model {
+                            id: powerCube
+                            source: "#Cube"
                             pickable: true
+                            scale: "0.0002,0.0002,0.001"
+                            x: 0.160562
+                            y: -0.075973
+                            z: 0.0110243
+                            materials: DefaultMaterial { diffuseColor: "beige" } //; opacity: 0.1 }
                             property bool powerOn: false
                             TapHandler {
-                                onTapped: powerOn = !powerOn
+                                onTapped: {
+                                    console.log("---------------- TAPPED")
+                                    powerOn = !powerOn
+                                }
                             }
                         }
                         Model {
@@ -581,6 +594,9 @@ Node {
                             materials: [
                                 rodec_Knobs_Aniso_material
                             ]
+                            TapHandler {
+                                onTapped: console.log("tapped stereo switch")
+                            }
                         }
                         Model {
                             id: rodec_Mixetta_Rodec_Trans_0
