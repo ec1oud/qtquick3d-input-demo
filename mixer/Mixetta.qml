@@ -21,7 +21,7 @@ Node {
     property alias phono1sliderValue: rodec_Mixetta_Rodec_Slider_Phono1.value
 
 //    property alias rot1: rodec_Mixetta_Rodec_Knobs_Aniso_Phono1_wh.rotation
-//    property alias rot2: rodec_Mixetta_Rodec_Knobs_Phono1_wh.rotation
+    property alias rot2: rodec_Mixetta_Rodec_Knobs_Phono1.eulerRotation.z
 
     Node {
         id: rodec_Mixetta
@@ -340,7 +340,13 @@ Node {
             x: -0.181736
             y: 0.0227965
             z: 0.0112006
-            eulerRotation: Qt.vector3d(0, 0, -155 - rOOT.phono1rot + rodec_Mixetta_Rodec_Knobs_Phono1_wh.rotation)
+            property real rot: 205 - rOOT.phono1rot + rodec_Mixetta_Rodec_Knobs_Phono1_wh.rotation
+            eulerRotation: Qt.vector3d(0, 0, rot)
+            BoundaryRule on rot {
+                minimum: -65
+                maximum: 205
+            }
+
             scale.x: 1
             scale.y: 1
             source: "meshes/rodec_Mixetta_Rodec_Knobs_Phono1.mesh"

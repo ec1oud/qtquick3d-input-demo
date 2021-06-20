@@ -21,7 +21,7 @@ View3D {
         position: "0.954, 2.25, 370"
         eulerRotation: "90,0,0"
 
-        phono1rot: slider1.value
+        phono1rot: ph1wh.rotation
         phono2rot: slider1.value
         microlineRot: slider1.value
         tape1rot: slider1.value
@@ -55,11 +55,25 @@ View3D {
             pickable: true
             scale: "0.03,0.02,0.03"
             position: "16,1,7"
-            materials: DefaultMaterial { diffuseColor: pcth.pressed ? "tomato" : "beige"; opacity: 0.1 }
+            materials: DefaultMaterial { diffuseColor: pwkth.pressed ? "tomato" : "beige"; opacity: 0.1 }
             property bool powerOn: false
             TapHandler {
-                id: pcth
+                id: pwkth
                 onPressedChanged: if (!pressed) obj.powerOn = !obj.powerOn
+            }
+        }
+
+        // workaround for rodec_Mixetta_Rodec_Knobs_Phono1
+        Model {
+            id: phono1KnobEnvelope
+            source: "#Cylinder"
+            pickable: true
+            scale: "0.03,0.02,0.03"
+//            position: Qt.vector3d(sliderx.value, slidery.value, sliderz.value)
+            position: "-17.8,1,-2.2"
+            materials: DefaultMaterial { diffuseColor: "beige"; opacity: 0.1 }
+            WheelHandler {
+                id: ph1wh
             }
         }
     }
