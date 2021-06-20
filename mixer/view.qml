@@ -30,8 +30,20 @@ View3D {
         microbassRot: slider1.value
         levelRot: slider1.value
 
-        leftMeterRot: slider1.value
-        rightMeterRot: slider1.value
+        Timer {
+            id: vuTimer
+            interval: 50; repeat: true; running: true
+            onTriggered: {
+                obj.leftMeterRot = 20 + Math.random() * 30
+                obj.rightMeterRot = obj.leftMeterRot + (Math.random() - 0.5) * 5
+            }
+        }
+        Behavior on leftMeterRot {
+            NumberAnimation { duration: 100 }
+        }
+        Behavior on rightMeterRot {
+            NumberAnimation { duration: 100 }
+        }
     }
 //    WasdController { controlledObject: obj }
 
