@@ -1,0 +1,11 @@
+Model Information:
+* title:	Rodec Mixetta - mixing console
+* source:	https://sketchfab.com/3d-models/rodec-mixetta-mixing-console-a848812574b141d7bb2b6af2e9bdb5ee
+* author:	João Desager (https://sketchfab.com/JoaoDesager)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Rodec Mixetta - mixing console" (https://sketchfab.com/3d-models/rodec-mixetta-mixing-console-a848812574b141d7bb2b6af2e9bdb5ee) by João Desager (https://sketchfab.com/JoaoDesager) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
