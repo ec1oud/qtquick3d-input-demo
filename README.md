@@ -12,3 +12,14 @@ There's also a
 
 ![screenshot of View3D with Qt Quick 2D scene on a texture on a nested Rectangle model](screenshot.jpg "UI Screenshot")
 
+Now there's also a second demo: "rigging" a 
+[third-party model](https://sketchfab.com/3d-models/rodec-mixetta-mixing-console-a848812574b141d7bb2b6af2e9bdb5ee)
+and making it interactive.  (Thanks João Desager!)  This depends on the same
+experimental Qt feature which still has not shipped in 6.2.
+
+![image](screenshot-mixer.jpg)
+
+A 
+[presentation](https://github.com/ec1oud/qt-presentations/tree/qtquick3d-interactive-ui)
+explaining the different use cases and workflows is available.
+
