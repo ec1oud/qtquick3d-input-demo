@@ -55,7 +55,7 @@ View3D {
             easing.amplitude: 0.7
         }
 
-        // workaround because making rodec_Mixetta_Rodec_Knobs_Power pickable doesn't sem to work
+        // workaround because making rodec_Mixetta_Rodec_Knobs_Power pickable doesn't seem to work
         Model {
             id: powerKnobEnvelope
             source: "#Cylinder"
@@ -70,7 +70,7 @@ View3D {
             }
         }
 
-        // workaround for rodec_Mixetta_Rodec_Knobs_Phono1
+        // workaround for rodec_Mixetta_Rodec_Knobs_MicroBass
         Model {
             id: microBassKnobEnvelope
             source: "#Cylinder"
