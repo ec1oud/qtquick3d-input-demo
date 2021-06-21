@@ -20,7 +20,7 @@ Node {
 
     property alias phono1sliderValue: rodec_Mixetta_Rodec_Slider_Phono1.value
 
-//    property alias rot1: rodec_Mixetta_Rodec_Knobs_Aniso_Phono1_wh.rotation
+    property alias rot1: rodec_Mixetta_Rodec_Knobs_MicroBass.mbrot
     property alias rot2: rodec_Mixetta_Rodec_Knobs_Phono1.eulerRotation.z
 
     Node {
@@ -172,7 +172,7 @@ Node {
             x: 0.160732
             y: -0.0208635
             z: 0.019
-            eulerRotation: Qt.vector3d(0, 0, 28.5 - rOOT.microbassRot)
+            eulerRotation: rodec_Mixetta_Rodec_Knobs_MicroBass.eulerRotation
             source: "meshes/rodec_Mixetta_Rodec_Knobs_Aniso_MicroBass.mesh"
             materials: [
                 rodec_Knobs_Aniso_material
@@ -183,7 +183,7 @@ Node {
             x: -0.081466
             y: 0.0231433
             z: 0.0188349
-            eulerRotation: Qt.vector3d(0, 0, -154 - rOOT.microlineRot)
+            eulerRotation: rodec_Mixetta_Rodec_Knobs_MicroLine.eulerRotation
             scale.x: 1
             scale.y: 1
             source: "meshes/rodec_Mixetta_Rodec_Knobs_Aniso_MicroLine.mesh"
@@ -316,7 +316,12 @@ Node {
             x: 0.160479
             y: -0.021216
             z: 0.0110243
-            eulerRotation: Qt.vector3d(0, 0, 28.5 - rOOT.microbassRot)
+            property real mbrot: 28.5 - rOOT.microbassRot
+            eulerRotation: Qt.vector3d(0, 0, mbrot)
+            BoundaryRule on mbrot {
+                maximum: 28.5
+                minimum: -270
+            }
             source: "meshes/rodec_Mixetta_Rodec_Knobs_MicroBass.mesh"
             materials: [
                 rodec_Knobs_material

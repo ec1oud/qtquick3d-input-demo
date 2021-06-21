@@ -8,6 +8,7 @@ View3D {
     id: view
     width: 1600
     height: 1600
+    y: 100
 
     environment: SceneEnvironment {
         clearColor: "black"
